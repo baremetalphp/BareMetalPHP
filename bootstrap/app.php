@@ -10,6 +10,9 @@ use BareMetalPHP\Application;
 
 $app = new Application();
 
+// Set as global instance so it can be accessed via Application::getInstance()
+Application::setInstance($app);
+
 // Register service providers
 $providersFile = __DIR__ . '/providers.php';
 if (file_exists($providersFile)) {
