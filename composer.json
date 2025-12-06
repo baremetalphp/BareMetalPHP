@@ -4,7 +4,7 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "elliotanderson/phpframework": "^1.0",
+        "baremetalphp/framework": "^0.1.0",
         "php": ">=8.0"
     },
     "autoload": {
