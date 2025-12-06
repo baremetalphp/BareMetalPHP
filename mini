@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-use Framework\Console\Application;
-
 require __DIR__ . '/vendor/autoload.php';
+
+use BareMetalPHP\Console\Application;
 
 // Bootstrap the application to load .env and config
 // This ensures console commands have access to environment variables and service providers

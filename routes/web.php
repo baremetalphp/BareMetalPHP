@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Framework\Routing\Router;
-use Framework\View\View;
+use BareMetalPHP\Routing\Router;
+use BareMetalPHP\View\View;
 
 return function (Router $router): void {
     $router->get('/', function () {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Framework\Http\Response;
+use BareMetalPHP\Http\Response;
 
 abstract class Controller
 {

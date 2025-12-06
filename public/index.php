@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Framework\Exceptions\ErrorPageRenderer;
-use Framework\Http\Request;
-use Framework\Http\Kernel;
+use BareMetalPHP\Exceptions\ErrorPageRenderer;
+use BareMetalPHP\Http\Request;
+use BareMetalPHP\Http\Kernel;
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -12,7 +12,7 @@ ini_set('display_errors', '1');
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Start session
-\Framework\Support\Session::start();
+\BareMetalPHP\Support\Session::start();
 
 set_exception_handler(function (\Throwable $e) {
     http_response_code(500);

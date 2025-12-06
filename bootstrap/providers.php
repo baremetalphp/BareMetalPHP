@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 return [
     // Framework core providers
-    \Framework\Providers\ConfigServiceProvider::class,
-    \Framework\Providers\DatabaseServiceProvider::class,
-    \Framework\Providers\ViewServiceProvider::class,
-    \Framework\Providers\RoutingServiceProvider::class,
-    \Framework\Providers\HttpServiceProvider::class,
+    \BareMetalPHP\Providers\ConfigServiceProvider::class,
+    \BareMetalPHP\Providers\DatabaseServiceProvider::class,
+    \BareMetalPHP\Providers\ViewServiceProvider::class,
+    \BareMetalPHP\Providers\RoutingServiceProvider::class,
+    \BareMetalPHP\Providers\HttpServiceProvider::class,
     
     // Application providers
     \App\Providers\AppServiceProvider::class,

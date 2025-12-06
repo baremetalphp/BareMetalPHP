@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Framework\Support\ServiceProvider;
+use BareMetalPHP\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

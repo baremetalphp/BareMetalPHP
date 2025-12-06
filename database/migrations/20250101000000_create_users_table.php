@@ -1,7 +1,7 @@
 <?php
 
-use Framework\Database\Migration;
-use Framework\Database\Connection;
+use BareMetalPHP\Database\Migration;
+use BareMetalPHP\Database\Connection;
 
 return new class extends Migration
 {

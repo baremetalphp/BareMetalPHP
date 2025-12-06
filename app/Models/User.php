@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Framework\Database\Model;
+use BareMetalPHP\Database\Model;
 
 class User extends Model
 {

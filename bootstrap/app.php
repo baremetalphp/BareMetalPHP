@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-use Framework\Application;
-
 // Load Composer autoloader
 require_once __DIR__ . '/../vendor/autoload.php';
+
+use BareMetalPHP\Application;
+
 
 $app = new Application();
 
@@ -17,8 +18,8 @@ if (file_exists($providersFile)) {
 }
 
 // Register ErrorHandler
-$app->singleton(\Framework\Exceptions\ErrorHandler::class, function () {
-    return new \Framework\Exceptions\ErrorHandler();
+$app->singleton(\BareMetalPHP\Exceptions\ErrorHandler::class, function () {
+    return new \BareMetalPHP\Exceptions\ErrorHandler();
 });
 
 // Boot all registered providers

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Framework\Support\Env;
+use BareMetalPHP\Support\Env;
 
 return [
     /*
