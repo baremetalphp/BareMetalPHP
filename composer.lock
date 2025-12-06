@@ -1,0 +1,85 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "519257d3dc060872979638c2aae8a2cc",
+    "packages": [
+        {
+            "name": "baremetalphp/framework",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/baremetalphp/framework.git",
+                "reference": "d02bc764a160520c126cadb22182fe89fdc8d8a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/baremetalphp/framework/zipball/d02bc764a160520c126cadb22182fe89fdc8d8a6",
+                "reference": "d02bc764a160520c126cadb22182fe89fdc8d8a6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^12.5"
+            },
+            "default-branch": true,
+            "bin": [
+                "mini"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Support/helpers.php"
+                ],
+                "psr-4": {
+                    "BareMetalPHP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Elliot Anderson",
+                    "email": "elliot.anderson43@gmail.com"
+                }
+            ],
+            "description": "A lightweight, educational PHP framework with service container, routing, ORM, and more",
+            "keywords": [
+                "framework",
+                "mvc",
+                "orm",
+                "php",
+                "routing"
+            ],
+            "support": {
+                "issues": "https://github.com/baremetalphp/framework/issues",
+                "source": "https://github.com/baremetalphp/framework/tree/main"
+            },
+            "time": "2025-12-06T20:19:55+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "baremetalphp/framework": 20
+    },
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=8.0"
+    },
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
+}
