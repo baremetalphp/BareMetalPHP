@@ -1,128 +1,195 @@
-# Bare Metal PHP
+# 🚀 BareMetalPHP  
+### A modern PHP framework with a Go-powered application server
 
-Welcome to your new Bare Metal PHP application! This is a clean, minimal installation ready for you to build upon.
+BareMetalPHP is a lightweight, high-performance PHP framework designed around a simple idea:
 
-## Installation
+**PHP should run fast by default — without FPM, without heavy stacks, and without hacks.**
 
-This project was created using:
+Instead of relying on traditional PHP-FPM, BareMetalPHP includes an optional **Go application server** that manages persistent PHP workers. This provides:
 
-```bash
-composer create-project elliotanderson/baremetal my-app
+- Huge performance gains over cold-start PHP  
+- True parallelism (fast + slow worker pools)  
+- Zero-config hot reload  
+- Static asset offloading  
+- A fast, modern DX similar to Node, Go, or Rust  
+
+If you want Laravel’s experience but not Laravel’s overhead, this is your framework.
+
+---
+
+## ✨ Key Features
+
+### 🟨 1. Go-Powered App Server (the BareMetal Runtime)
+
+BareMetalPHP includes a Go runtime that functions like a lightweight alternative to Swoole or Laravel Octane:
+
+- Persistent PHP worker pool  
+- Fast + slow request classification  
+- Hot reload for PHP & routes  
+- Static file serving  
+- Efficient Go→PHP bridge protocol  
+
+Enable it with:
+
+```env
+APPSERVER_ENABLED=true
 ```
 
-## 🚀 Quick Start
-
-### 1. Install Dependencies
+Start it with:
 
 ```bash
-composer install
+php mini go:serve
 ```
 
-### 2. Configure Environment
+Dry run:
 
 ```bash
-cp .env.example .env
+php mini go:serve --dry-run
 ```
 
-Edit `.env` to configure your database and application settings.
+### 🎯 2. A modern, minimal PHP framework
 
-### 3. Create Database
+BareMetalPHP provides:
+- Simple router
+- Controller + method resolution
+- PSR-7-style Request & Response
+- Lightweight dependency injection container
+- View layer
+- Migrations + SQLite testing utilities
+- `mini` CLI (generators, migrations, test tools)
 
-For SQLite (default):
+It is intentionally small, readable, and fast.
+
+### ✔️ 3. Fully tested
+
+The framework is covered by a deterministic test suite:
+- Routing, container, HTTP kernel
+- Database + migrations + rollback
+- Go app server installer
+- Go -> PHP worker bridge
+
+Run all tests:
+
 ```bash
-touch database.sqlite
+vendor/bin/phpunit
 ```
 
-For MySQL/PostgreSQL, update your `.env` file with your database credentials.
+### 🧰 Installation
 
-### 4. Run Migrations
+Create a new BareMetalPHP project:
 
 ```bash
-php mini migrate
+composer create-project baremetalphp/baremetalphp my-app
+cd my-app
 ```
 
-This will create the `users` table and any other migrations you've added.
-
-### 5. Start Development Server
+Run the built-in PHP server:
 
 ```bash
 php mini serve
 ```
 
-Visit `http://127.0.0.1:9003` in your browser to see the welcome page!
+#### Install the Go application server
 
-## 📁 Project Structure
-
-```
-fresh-install/
-├── app/
-│   ├── Http/
-│   │   └── Controllers/     # Your controllers
-│   └── Models/              # Your models
-├── bootstrap/               # Application bootstrap
-├── config/                  # Configuration files
-├── database/
-│   └── migrations/         # Database migrations
-├── public/                  # Web root
-├── resources/
-│   └── views/              # Your views
-├── routes/                 # Route definitions
-└── storage/                # Storage (cache, logs, etc.)
+```bash
+php mini go:install
+go mod tidy
+php mini go:serve
 ```
 
-## 🛠️ Available Commands
+Default Go server URL:
 
-- `php mini serve` - Start the development server
-- `php mini migrate` - Run database migrations
-- `php mini migrate:rollback` - Rollback the last migration
-- `php mini make:controller Name` - Create a new controller
-- `php mini make:migration name` - Create a new migration
+```bash
+http://localhost:8080
+```
 
-## 📚 Next Steps
+### ⚙️ Configuration `(config/appserver.php)`
 
-1. **Create Routes**: Edit `routes/web.php` to add your routes
-2. **Create Controllers**: Use `php mini make:controller Name` or create manually in `app/Http/Controllers/`
-3. **Create Models**: Add models in `app/Models/` extending `Framework\Database\Model`
-4. **Create Views**: Add views in `resources/views/` and use `View::make('view-name')`
-5. **Run Migrations**: Create migrations with `php mini make:migration` and run with `php mini migrate`
+```php
+return [
+    'enabled'      => env('APPSERVER_ENABLED', false),
+    'fast_workers' => (int) env('APPSERVER_FAST_WORKERS', 4),
+    'slow_workers' => (int) env('APPSERVER_SLOW_WORKERS', 2),
+    'hot_reload'   => (bool) env('APPSERVER_HOT_RELOAD', true),
 
-## Performance
+    'static' => [
+        ['prefix' => '/assets/', 'dir' => 'public/assets'],
+        ['prefix' => '/build/',  'dir' => 'public/build'],
+        ['prefix' => '/css/',    'dir' => 'public/css'],
+        ['prefix' => '/js/',     'dir' => 'public/js'],
+        ['prefix' => '/images/', 'dir' => 'public/images'],
+        ['prefix' => '/img/',    'dir' => 'public/img'],
+    ],
+];
+```
 
-### Micro-benchmarks
+The Go installer generates a matching `go_appserver.json` automatically.
 
-On my local machine (M2 Pro, PHP 8.x, macOS), I ran ApacheBench against identical routes
-in multiple frameworks for 10 seconds at 100 concurrent connections:
+### 🧩 Architecture Overview
 
-- `/ping` (simple text)
-- `/api/json` (JSON response)
-- `/view` (templated HTML view)
-- `/user/{id}` (parameterized route)
-- `/api/process` (small CPU-bound handler)
+```arduino
+                   ┌──────────────────────────────┐
+                   │        Go HTTP Server         │
+                   │  - static files               │
+     Request ─────▶│  - routing fallback           │──────────┐
+                   │  - hot reload watcher         │          │
+                   └──────────────────────────────┘          │
+                                                             ▼
+                                               ┌──────────────────────────┐
+                                               │   PHP Worker Pool        │
+                                               │  (persistent processes)  │
+                                               └──────────────────────────┘
+                                                             │
+                                                             ▼
+                                               ┌──────────────────────────┐
+                                               │ BareMetalPHP Framework  │
+                                               │  - routing               │
+                                               │  - container             │
+                                               │  - controllers           │
+                                               │  - views                 │
+                                               │  - database/migrations   │
+                                               └──────────────────────────┘
 
-**Average throughput (requests/second):**
+```
 
-- Laravel (PHP-FPM): ~268 req/s  
-- BareMetalPHP (PHP-FPM): ~730 req/s  
-- Laravel Octane (FrankenPHP): ~664 req/s  
+### 📦 Commands
 
-From this setup:
+```bash
+php mini serve
+php mini make:controller Foo
+php mini make:migration create_users
+php mini migrate
+php mini migrate:rollback
 
-- BareMetalPHP handled **about 2.7× more requests/sec than Laravel** when both ran on PHP-FPM.
-- BareMetalPHP on plain PHP-FPM was **roughly on par with (≈10% faster than) Laravel Octane on FrankenPHP** in these micro-benchmarks.
+php mini install:go-appserver
+php mini go:serve
+php mini go:serve --dry-run
+```
 
-These are simple synthetic benchmarks (no database, no cache, no real-world I/O), so they
-should be treated as a rough indication of framework overhead rather than a full
-production performance guarantee.
+### 🔖 Version 0.2.0 Release Notes
 
-When I switched BareMetalPHP itself to FrankenPHP and re-ran the same tests
-(5 seconds, 50 concurrent connections), throughput increased by ~35% compared
-to BareMetalPHP on PHP-FPM. (Laravel can also be run on FrankenPHP, so this is
-measuring the process model, not framework A vs framework B.)
+- Go application server is now a first-class feature
+- `go:serve` command added
+- `go:install` scaffolding generator added
+- `go_appserver.json` generated from PHP config
+- Persistent PHP worker bridge implemented
+- Better migration rollback logic
+- Higher overall test coverage
 
-## 📖 Documentation
+### 🛣 Roadmap
 
-For more information, visit the framework documentation.
+- Zero-downtime worker recycling
+- WebSockets via Go
+- Cache subsystem
+- Async jobs via Go sidecar
+- API rate limiting
+- Events + Subscribers
+- Optional queue runner
 
-Happy coding! 🎉
+### 🤝 Contributing
 
+Contributions, ideas, and issues are welcome.
 
+### 📄 License
+
+MIT
