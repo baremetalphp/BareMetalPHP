@@ -1,4 +1,4 @@
-# 🚀 BareMetalPHP  
+# 🚀 Bare Metal PHP  
 ### A modern PHP framework with a Go-powered application server
 
 BareMetalPHP is a lightweight, high-performance PHP framework designed around a simple idea:
