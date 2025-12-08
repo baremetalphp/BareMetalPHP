@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "815c1544cdb5b68c44b5382bb977da8e",
+    "content-hash": "3093750dca1a939fb08a18a615746231",
     "packages": [
         {
             "name": "baremetalphp/framework",
-            "version": "v0.1.5",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baremetalphp/framework.git",
-                "reference": "89002361d03a9e0c80bb598f1d9f38ad679739e6"
+                "reference": "d7c8b35b75ab099f8d346b8fc3134538f3e0491c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baremetalphp/framework/zipball/89002361d03a9e0c80bb598f1d9f38ad679739e6",
-                "reference": "89002361d03a9e0c80bb598f1d9f38ad679739e6",
+                "url": "https://api.github.com/repos/baremetalphp/framework/zipball/d7c8b35b75ab099f8d346b8fc3134538f3e0491c",
+                "reference": "d7c8b35b75ab099f8d346b8fc3134538f3e0491c",
                 "shasum": ""
             },
             "require": {
@@ -63,17 +63,15 @@
             ],
             "support": {
                 "issues": "https://github.com/baremetalphp/framework/issues",
-                "source": "https://github.com/baremetalphp/framework/tree/v0.1.5"
+                "source": "https://github.com/baremetalphp/framework/tree/v0.2.0"
             },
-            "time": "2025-12-08T18:10:04+00:00"
+            "time": "2025-12-08T20:17:52+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "baremetalphp/framework": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
