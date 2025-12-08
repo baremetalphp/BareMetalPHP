@@ -5,7 +5,6 @@ declare(strict_types=1);
 use BareMetalPHP\Exceptions\ErrorPageRenderer;
 use BareMetalPHP\Http\Request;
 use BareMetalPHP\Http\Kernel;
-
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
