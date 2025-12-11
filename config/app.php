@@ -7,6 +7,12 @@ use BareMetalPHP\Support\Facades\Session;
 use BareMetalPHP\Support\Facades\Log;
 
 return [
+    'name' => env('APP_NAME', 'BareMetalPHP App'),
+    'env' => env('APP_ENV', 'local'),
+    'debug' => (bool) env('APP_DEBUG', true),
+    'url' => env('APP_URL', 'http://localhost'),
+    'timezone' => 'UTC',
+    'locale' => 'en',
     'aliases' => [
         // Core
         'App' => App::class,
